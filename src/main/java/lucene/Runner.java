@@ -28,13 +28,17 @@ public class Runner {
 		
 		//RecSys r = new RecSys();
 		
-		Lucene lu = new Lucene();
+		//System.out.println();
 		
-		lu.init();
+		
+		
+		//Lucene lu = new Lucene();
+		
+		//lu.init();
 		
 		//lu.buildIndex();
 		
-		System.out.println(lu.QuerySearch("lisbon", 0));
+		//System.out.println(lu.QuerySearch("lisbon", 0));
 	
 		//System.out.println(j);
 			

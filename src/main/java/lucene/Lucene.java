@@ -37,6 +37,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+
 //import pt.uc.dei.ia.jena.TripleStoreReader;
 import lucene.IndexBuilder;
 import lucene.WordReader;
@@ -131,7 +132,17 @@ public class Lucene {
 	/* SUGESTED TERMS FUNCTION */
 	public JSONArray suggestTermsFor(String term) throws IOException {
 
-		File auto_index = new File("C:/Users/hmiguel/workspace/index/autocomplete");
+		File auto_index;
+		
+		if (System.getProperty("os.name").contains("Windows")){
+			auto_index = new File("C:/Users/hmiguel/workspace/index/autocomplete");
+			
+		}else{
+			
+			
+			auto_index = new File("padsilva/index/autocomplete"); //TODO
+		}
+		
 
 		IndexReader autoCompleteReader = DirectoryReader.open(FSDirectory
 				.open(auto_index)); // READ
@@ -369,10 +380,14 @@ public class Lucene {
 		// System.out.println("Lucene Starting...");
 
 		analyzer = new StandardAnalyzer(Version.LUCENE_40);
-		index = new File("C:/Users/hmiguel/workspace/index/");
 		
+		if (System.getProperty("os.name").contains("Windows")){
+			index = new File("C:/Users/hmiguel/workspace/index/");
+		}else{
+			
+			index = new File("padsilva/index/"); //TODO
+		}
 		
-
 	}
 
 	public static void buildIndex() {
@@ -380,7 +395,7 @@ public class Lucene {
 		System.out.print("Creating Index...");
 
 		if (!CreateIndexFromData(index)) { // FIRST TIME
-			System.out.println("ERROR");
+			System.out.println("ERROR>>");
 			return;
 		} else {
 			System.out.println("OK");
