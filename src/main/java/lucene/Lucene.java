@@ -385,7 +385,7 @@ public class Lucene {
 			index = new File("C:/Users/hmiguel/workspace/index/");
 		}else{
 			
-			index = new File("home/padsilva/Desktop/SIGC/index/"); //TODO
+			index = new File("/home/padsilva/Desktop/SIGC/index/"); //TODO
 		}
 		
 	}
