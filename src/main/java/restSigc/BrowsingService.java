@@ -20,7 +20,7 @@ public class BrowsingService {
 	/*
 	@GET
 	@Path("/{prop}")
-	public Response getProperty( //ServiÃ§o que retorna lista de itens da propriedade
+	public Response getProperty( //Servico que retorna lista de itens da propriedade
 			@PathParam("prop") String prop
 			) {
 		
@@ -42,7 +42,7 @@ public class BrowsingService {
 	/*
 	@GET
 	@Path("/{prop}/{item}")
-	public Response getPropertyItem( //Serviço que retorna lista de artigos do item escolhido
+	public Response getPropertyItem( //Servico que retorna lista de artigos do item escolhido
 			@PathParam("prop") String prop,
 			@PathParam("item") String item
 			) {
