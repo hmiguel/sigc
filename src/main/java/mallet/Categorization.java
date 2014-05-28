@@ -22,8 +22,12 @@ public class Categorization {
 		JSONObject json = new JSONObject();
 		
 		//Pre-Processed Classifier File
-		File file = new File("C:\\Users\\hmiguel\\Desktop\\Faculdade\\2014\\2S\\SIGC-Proj\\classifier.mallet");
-				
+		if (System.getProperty("os.name").contains("Windows")){
+			File file = new File("C:\\Users\\hmiguel\\Desktop\\Faculdade\\2014\\2S\\SIGC-Proj\\classifier.mallet");
+		}else{
+			
+			File file = new File("/home/padsilva/Desktop/SIGC/Classifier/classifier.mallet")
+		}
 		//Load Classifier
 		Classifier clas = getClassifier(file);
 					
