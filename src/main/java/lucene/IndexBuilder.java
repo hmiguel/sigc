@@ -9,8 +9,8 @@ import org.apache.lucene.document.StringField;
 import org.apache.lucene.document.TextField;
 import org.apache.lucene.index.IndexWriter;
 
-
 import models.Category;
+import models.Entity;
 import models.NER.Date;
 import models.NER.Local;
 import models.NER.Money;
@@ -18,20 +18,20 @@ import models.NER.Org;
 import models.NER.Percent;
 import models.NER.Person;
 import models.NER.Time;
-import models.Word;
-
 import models.Topic;
 import models.Article;
 
 public class IndexBuilder {
 	
-	public static void addDocWords(IndexWriter w, Word word) throws IOException {
+	public static void addDocWords(IndexWriter w, Entity e) throws IOException {
 		
 		Document doc = new Document();
 		
-		doc.add(new TextField("word", word.getWord(), Field.Store.YES)); // Word
+		doc.add(new TextField("entity", e.getEntity(), Field.Store.YES)); // Entity
 		
-		doc.add(new TextField("count", Integer.toString(word.getOcurrence()), Field.Store.NO)); // Counter
+		doc.add(new TextField("type", e.getType(), Field.Store.YES)); // Entity Type
+		
+		doc.add(new TextField("count", Integer.toString(e.getOcurrence()), Field.Store.NO)); // Counter
 		
 		w.addDocument(doc);
 	}

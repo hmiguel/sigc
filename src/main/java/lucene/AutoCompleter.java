@@ -54,7 +54,6 @@ import org.codehaus.jettison.json.JSONObject;
 //import pt.uc.dei.ia.jena.TripleStoreReader;
 import models.Article;
 import models.NER.Person;
-import models.Word;
 
 public final class AutoCompleter {
 

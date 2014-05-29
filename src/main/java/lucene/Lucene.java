@@ -38,22 +38,20 @@ import java.util.List;
 
 
 
+
 //import pt.uc.dei.ia.jena.TripleStoreReader;
 import lucene.IndexBuilder;
-import lucene.WordReader;
 import models.Article;
-import models.Word;
+import models.Entity;
 
 public class Lucene {
 
 	private static StandardAnalyzer analyzer;
 	private static File index;
-	private static File triples;
 
 	public boolean CreateAutoCompleteIndexFromDic() {
 
 		File index = new File("C:/Users/hmiguel/workspace/index/autocomplete"); // index
-																			// path
 
 		if (index.isDirectory()) {
 
@@ -69,17 +67,17 @@ public class Lucene {
 					analyzer);
 
 			// INDEX WRITER CONFIG
-			IndexWriter w = new IndexWriter(FSDirectory.open(index), config);
+			IndexWriter writer = new IndexWriter(FSDirectory.open(index), config);
 
 			// WORD DICIONARY READER
-			List<Word> words = WordReader.GetWords();
+			List<Entity> entities = EntityReader.GetEntities();
+					
+			for (Entity entity : entities) {
 
-			for (Word word : words) {
-
-				IndexBuilder.addDocWords(w, word);
+				IndexBuilder.addDocWords(writer, entity);
 			}
 
-			w.close(); // Close Writer
+			writer.close(); // Close Writer
 
 		} catch (Exception e) {
 

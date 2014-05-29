@@ -6,8 +6,6 @@ import java.util.List;
 
 import org.codehaus.jettison.json.JSONObject;
 
-import lucene.WordReader;
-import models.Word;
 
 public class Runner {
 
