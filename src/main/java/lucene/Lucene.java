@@ -19,6 +19,7 @@ import org.apache.lucene.search.PrefixQuery;
 import org.apache.lucene.search.Query;
 import org.apache.lucene.search.ScoreDoc;
 import org.apache.lucene.search.Sort;
+import org.apache.lucene.search.SortField;
 import org.apache.lucene.search.TermQuery;
 import org.apache.lucene.search.TopDocs;
 import org.apache.lucene.search.TopDocsCollector;
@@ -29,14 +30,12 @@ import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
-import data.ArticlesReader;
+import data.DataReader;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-
 
 
 //import pt.uc.dei.ia.jena.TripleStoreReader;
@@ -70,7 +69,7 @@ public class Lucene {
 			IndexWriter writer = new IndexWriter(FSDirectory.open(index), config);
 
 			// WORD DICIONARY READER
-			List<Entity> entities = EntityReader.GetEntities();
+			List<Entity> entities = data.DataReader.getEntities();
 					
 			for (Entity entity : entities) {
 
@@ -107,7 +106,7 @@ public class Lucene {
 
 			// ARTICLES READER - SIGC READER
 			//List<Article> articles = TripleStoreReader.getArticles();
-			List<Article> articles = ArticlesReader.getArticles(); 
+			List<Article> articles = DataReader.getArticles(); 
 			
 			// #ARTICLES
 			System.out.println("SIZE: " + articles.size());
@@ -128,56 +127,60 @@ public class Lucene {
 	}
 
 	/* SUGESTED TERMS FUNCTION */
-	public JSONArray suggestTermsFor(String term) throws IOException {
+	public JSONArray suggestTermsFor(String q) throws IOException, ParseException {
 
 		File auto_index;
 		
+		JSONArray array = new JSONArray();
+		
 		if (System.getProperty("os.name").contains("Windows")){
-			auto_index = new File("C:/Users/hmiguel/workspace/index/autocomplete");
+			auto_index = new File("C:/Users/hmiguel/workspace/index/autocomplete/");
 			
 		}else{
 			
 			
-			auto_index = new File("padsilva/index/autocomplete"); //TODO
+			auto_index = new File("/home/padsilva/index/autocomplete"); //TODO
 		}
 		
-
-		IndexReader autoCompleteReader = DirectoryReader.open(FSDirectory
-				.open(auto_index)); // READ
+		IndexReader autoCompleteReader = DirectoryReader.open(FSDirectory.open(auto_index)); // READ
 		IndexSearcher searcher = new IndexSearcher(autoCompleteReader);
+		
+		/*
+		MultiFieldQueryParser queryParser = new MultiFieldQueryParser(Version.LUCENE_40,
+                new String[] {"entity"},
+                analyzer);
+		TopScoreDocCollector collector = TopScoreDocCollector.create(500,true);
+		searcher.search(queryParser.parse(termo), collector);
+		ScoreDoc[] hits = collector.topDocs().scoreDocs;
 
-		// get the top 5 terms for query
-		// Query query = new TermQuery(new Term("word", term));
+		for(int i=0; i<hits.length; i++){
+			int docId = hits[i].doc;
 
-		Term t = new Term("word", term);
+			Document d = searcher.doc(docId);
+			
+			System.out.println(d.get("entity") + " " + d.get("type"));
+		}
+		
+		*/
+		
+		
+		Term t = new Term("entity", q);
+		
+		SortField s = new SortField("count", SortField.Type.INT, true);
 
-		Sort sort = new Sort();
+		Sort sort = new Sort(s);
 
 		Query query = new PrefixQuery(t);
 		TopDocs docs = searcher.search(query, 5, sort);
-
-		// Query q = new PrefixQuery(new Term(term));
-
-		//
-
-		// TopDocs docs = searcher.search(q, null, 5, sort);
-
-		// JSONOBJECT RESULTS
-
-		JSONArray array = new JSONArray();
-
-		// List<String> suggestions = new ArrayList<String>();
-
+		
 		for (ScoreDoc doc : docs.scoreDocs) {
 
-			String wd = autoCompleteReader.document(doc.doc).get("word");
+			String entity = autoCompleteReader.document(doc.doc).get("entity");
 
-			// suggestions.add(w);
-
-			array.put(wd);
+			array.put(entity);
 
 		}
-
+		
 		return array;
 
 	}

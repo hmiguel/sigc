@@ -10,10 +10,16 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 
 import org.apache.commons.io.*;
+import org.codehaus.jettison.json.JSONArray;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
+
+
+
+
 
 
 
@@ -28,9 +34,10 @@ import edu.stanford.nlp.ie.crf.CRFClassifier;
 import stanford.StringtoNER;
 import models.Article;
 import models.Category;
+import models.Entity;
 import models.Topic;
 
-public class ArticlesReader {
+public class DataReader {
 	
 	public static List<Article> getArticles() throws JSONException, IOException{
 		
@@ -113,5 +120,83 @@ public class ArticlesReader {
 	}
 		return list;
 	}
+	
+	public static List<Entity> getEntities() throws JSONException, IOException{
+		
+		List<Entity> list = new ArrayList<Entity>();
+		
+		
+		// READ JSON DATABASE <- INFO
+		String info_path = "C:\\Users\\hmiguel\\Desktop\\Faculdade\\2014\\2S\\SIGC-Proj\\ner.json";
+	
+		FileInputStream jsonFile = null;
+		JSONObject json = null;
+		try {
+			jsonFile = new FileInputStream(new File(info_path));
+			String jsonStr = IOUtils.toString(jsonFile, "UTF-8");
+			json = new JSONObject(jsonStr);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.toString());
+			return null;
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			System.out.println(e.toString());
+			return null;
+		}
+		
+		//Entity e = new Entity();
+		//['money', 'percent', 'person', 'time', 'date', 'org', 'locals']
+		
+		//PEOPLE
+		JSONArray people = json.getJSONArray("person");
+		
+	    for(int i = 0; i< people.length(); i++){
+	    	Entity e = new Entity();
+	    	e.setType("People");
+	    	e.setEntity((String) people.get(i));	
+	    	e.setOcurrence(randInt(1,5));
+	    	list.add(e);
+	    }
+	    
+	  //LOCALS
+	  	JSONArray locals = json.getJSONArray("locals");
+	  		
+	  	for(int i = 0; i< locals.length(); i++){
+	  	   	Entity e = new Entity();
+	  	   	e.setType("Locals");
+	  	   	e.setEntity((String) locals.get(i));	
+	  	   	e.setOcurrence(randInt(1,5));
+	  	   	list.add(e);
+	  	}
+	  	
+	  	 //ORGs
+	  	JSONArray orgs = json.getJSONArray("org");
+	  		
+	  	for(int i = 0; i< orgs.length(); i++){
+	  	   	Entity e = new Entity();
+	  	   	e.setType("Organizations");
+	  	   	e.setEntity((String) orgs.get(i));	
+	  	   	e.setOcurrence(randInt(1,5));
+	  	   	list.add(e);
+	  	}
+	    
+	
+		return list;
+	}
+	
+	public static int randInt(int min, int max) {
+
+	    // Usually this should be a field rather than a method variable so
+	    // that it is not re-seeded every call.
+	    Random rand = new Random();
+
+	    // nextInt is normally exclusive of the top value,
+	    // so add 1 to make it inclusive
+	    int randomNum = rand.nextInt((max - min) + 1) + min;
+
+	    return randomNum;
+	}
+	
 	
 }

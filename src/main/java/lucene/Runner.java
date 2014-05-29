@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import org.apache.lucene.queryparser.classic.ParseException;
 import org.codehaus.jettison.json.JSONObject;
 
 
@@ -12,11 +13,14 @@ public class Runner {
 	/**
 	 * @param args
 	 * @throws IOException 
+	 * @throws ParseException 
 	 */
-	public static void main(String[] args) throws IOException {
+	public static void main(String[] args) throws IOException, ParseException {
 		// TODO Auto-generated method stub
 
-		//Lucene luc = new Lucene();
+		Lucene luc = new Lucene();
+		
+		System.out.println(luc.suggestTermsFor("lond"));
 		
 		//luc.CreateAutoCompleteIndexFromDic();
 		

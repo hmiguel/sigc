@@ -9,6 +9,7 @@ import org.apache.lucene.document.StringField;
 import org.codehaus.jettison.json.JSONException;
 
 import models.Article;
+import models.Entity;
 import models.NER.Time;
 
 public class TT {
@@ -16,9 +17,12 @@ public class TT {
 	public static void main(String[] args) throws JSONException, IOException {
 		// TODO Auto-generated method stub
 		
-		List<Time> times = new ArrayList<Time>();
-		for(Time time : times){
-			System.out.println("puto");
+		List<Entity> e = data.DataReader.getEntities();
+		
+		System.out.println(e.size());
+		
+		for(Entity some: e){
+			System.out.println(some.getEntity() + " " + some.getType() + " " + some.getOcurrence());
 		}
 	}
 

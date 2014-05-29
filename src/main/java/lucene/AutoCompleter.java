@@ -93,49 +93,7 @@ public final class AutoCompleter {
 
     private IndexSearcher autoCompleteSearcher;
     
-    
-    public JSONObject getPeople(List<Article> articles) throws JSONException{
-    	
-    	JSONObject js = new JSONObject();
-    	
-    	js.put("people", new JSONArray());
-    	
-    	for(Article a: articles){
-    		
-    		js = extractArticlePeople(a, js);
-    		
-    	}
-    	
-    	return js;
-    }
-  
-    
-    public JSONObject extractArticlePeople (Article a, JSONObject js){
-    		  	
-    	// Parse Person
-    	List<Person> p = a.getPersons();
-    	
-    	JSONArray array = null;
-    	
-		try {
-			array = js.getJSONArray("people");
-		} catch (JSONException e1) {
-			e1.printStackTrace();
-		}
-    	
-    	for(Person person: p){
-    		array.put(person.getPerson());
-    	}
-    	try {
-			js.put("people", array);
-		} catch (JSONException e) {
-			e.printStackTrace();
-		}	
-    	
-    	return js;
-    }
-    
-    
+   
     
     public AutoCompleter(String autoCompleteDir) throws IOException {
     	

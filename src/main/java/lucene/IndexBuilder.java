@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.lucene.document.Document;
 import org.apache.lucene.document.Field;
+import org.apache.lucene.document.FieldType;
 import org.apache.lucene.document.StringField;
 import org.apache.lucene.document.TextField;
 import org.apache.lucene.index.IndexWriter;
@@ -27,7 +28,14 @@ public class IndexBuilder {
 		
 		Document doc = new Document();
 		
-		doc.add(new TextField("entity", e.getEntity(), Field.Store.YES)); // Entity
+		FieldType myField = new FieldType() ;
+		
+		myField.setIndexed(true);
+		myField.setStored(true);
+		
+		myField.setTokenized(true);
+		
+		doc.add(new Field("entity", e.getEntity(), myField)); // Entity
 		
 		doc.add(new TextField("type", e.getType(), Field.Store.YES)); // Entity Type
 		
