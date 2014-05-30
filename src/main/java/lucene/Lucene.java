@@ -127,7 +127,7 @@ public class Lucene {
 	}
 
 	/* SUGESTED TERMS FUNCTION */
-	public JSONArray suggestTermsFor(String q) throws IOException, ParseException {
+	public JSONArray suggestTermsFor(String q) throws IOException, ParseException, JSONException {
 
 		File auto_index;
 		
@@ -145,23 +145,6 @@ public class Lucene {
 		IndexReader autoCompleteReader = DirectoryReader.open(FSDirectory.open(auto_index)); // READ
 		IndexSearcher searcher = new IndexSearcher(autoCompleteReader);
 		
-		/*
-		MultiFieldQueryParser queryParser = new MultiFieldQueryParser(Version.LUCENE_40,
-                new String[] {"entity"},
-                analyzer);
-		TopScoreDocCollector collector = TopScoreDocCollector.create(500,true);
-		searcher.search(queryParser.parse(termo), collector);
-		ScoreDoc[] hits = collector.topDocs().scoreDocs;
-
-		for(int i=0; i<hits.length; i++){
-			int docId = hits[i].doc;
-
-			Document d = searcher.doc(docId);
-			
-			System.out.println(d.get("entity") + " " + d.get("type"));
-		}
-		
-		*/
 		
 		
 		Term t = new Term("entity", q);
@@ -176,8 +159,26 @@ public class Lucene {
 		for (ScoreDoc doc : docs.scoreDocs) {
 
 			String entity = autoCompleteReader.document(doc.doc).get("entity");
-
-			array.put(entity);
+			String type = autoCompleteReader.document(doc.doc).get("type");
+			
+			/* filter types */
+			/*['money', 'percent', 'person', 'time', 'date', 'org', 'locals']*/
+		
+			if(type.equals("org")) type = "Organization";
+			else if(type.equals("local")) type = "Local";
+			else if(type.equals("person")) type = "Person";
+			else if(type.equals("percent")) type = "Percent";
+			else if(type.equals("time")) type = "Time";
+			else if(type.equals("date")) type = "Date";
+			else if(type.equals("money")) type = "Money";
+			else type = "Unknow";
+			/* */
+			
+			
+			JSONObject item = new JSONObject();
+			item.put("entity", entity);
+			item.put("type", type);
+			array.put(item);
 
 		}
 		
