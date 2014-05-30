@@ -29,6 +29,7 @@ import org.codehaus.jettison.json.JSONObject;
 
 
 
+
 import edu.stanford.nlp.ie.AbstractSequenceClassifier;
 import edu.stanford.nlp.ie.crf.CRFClassifier;
 import stanford.StringtoNER;
@@ -127,7 +128,7 @@ public class DataReader {
 		
 		
 		// READ JSON DATABASE <- INFO
-		String info_path = "C:\\Users\\hmiguel\\Desktop\\Faculdade\\2014\\2S\\SIGC-Proj\\ner.json";
+		String info_path = "C:\\Users\\hmiguel\\Desktop\\Faculdade\\2014\\2S\\SIGC-Proj\\data\\ner_json.json";
 	
 		FileInputStream jsonFile = null;
 		JSONObject json = null;
@@ -147,6 +148,32 @@ public class DataReader {
 		
 		//Entity e = new Entity();
 		//['money', 'percent', 'person', 'time', 'date', 'org', 'locals']
+		
+		//json = (JSONObject) json.get("data"); // data
+		
+		JSONArray data = json.getJSONArray("data");
+		
+		for(int i = 0; i< data.length(); i++){
+			  
+			JSONObject item = data.getJSONObject(i);
+			
+			String entity = (String) item.get("entity");
+			String type = (String) item.get("type");
+			int occur =  item.getInt("occur");
+			
+			Entity e = new Entity();
+			e.setEntity(entity);
+			e.setOcurrence(occur);
+			e.setType(type);
+			list.add(e);
+						
+		}
+		
+		return list;
+	}
+		
+		/*
+		 //OLD CODE
 		
 		//PEOPLE
 		JSONArray people = json.getJSONArray("person");
@@ -197,6 +224,6 @@ public class DataReader {
 
 	    return randomNum;
 	}
-	
+	*/
 	
 }

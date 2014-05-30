@@ -20,14 +20,12 @@ public class Runner {
 
 		Lucene luc = new Lucene();
 		
-		System.out.println(luc.suggestTermsFor("lond"));
+		//System.out.println(luc.suggestTermsFor("lond"));
 		
 		//luc.CreateAutoCompleteIndexFromDic();
 		
 		//System.out.println(SpellCheck.Suggest("hello")); // TO SLOW
 	
-		//Sparql sparql = new Sparql();
-		
 		//RecSys r = new RecSys();
 		
 		//System.out.println();
