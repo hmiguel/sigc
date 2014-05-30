@@ -36,7 +36,7 @@ public class StringtoNER {
     	String content = article.getAbstract();
      	
     	Pattern ORG = Pattern.compile("<ORGANIZATION>(.+?)</ORGANIZATION>");
-    	Pattern PEOPLE = Pattern.compile("<PEOPLE>(.+?)</PEOPLE>");
+    	Pattern PEOPLE = Pattern.compile("<PERSON>(.+?)</PERSON>");
     	Pattern LOC = Pattern.compile("<LOCATION>(.+?)</LOCATION>");
     	Pattern TIME = Pattern.compile("<TIME>(.+?)</TIME>");
     	Pattern MONEY = Pattern.compile("<MONEY>(.+?)</MONEY>");
@@ -47,7 +47,7 @@ public class StringtoNER {
         List<String> people = getTagValues(xml,PEOPLE);
         List<NER.Person> persons = new ArrayList<NER.Person>();
         for (String person: people){
-        	Person p = null;
+        	Person p = new Person();
         	p.setPerson(person);
         	persons.add(p);
         }

@@ -4,9 +4,13 @@ import java.io.File;
 import java.io.IOException;
 import java.util.List;
 
+import models.Article;
+
 import org.apache.lucene.queryparser.classic.ParseException;
 import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
+
+import data.DataReader;
 
 
 public class Runner {
@@ -22,7 +26,9 @@ public class Runner {
 
 		Lucene luc = new Lucene();
 		
-		System.out.println(luc.suggestTermsFor("lond"));
+		luc.buildIndex();
+		
+		//System.out.println(luc.suggestTermsFor("lond"));
 		
 		//luc.CreateAutoCompleteIndexFromDic();
 		
@@ -40,8 +46,20 @@ public class Runner {
 		
 		//lu.buildIndex();
 		
-		//System.out.println(lu.QuerySearch("lisbon", 0));
-	
+		//System.out.println(luc.QuerySearch("obama", 0));
+		/*
+		
+		List<Article> articles = DataReader.getArticles(); 
+		
+		// #ARTICLES
+		System.out.println("SIZE: " + articles.size());
+
+		// FOR EACH ARTICLE -> CREATE INDEX DOCUMENT
+		for (Article article : articles) {
+			System.out.println(article.getPersons());
+		}
+		
+		*/
 		//System.out.println(j);
 			
 		//luc.buildIndex();

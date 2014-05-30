@@ -68,7 +68,7 @@ public class DataReader {
 		File folder = new File(base);
 		
 		// LOAD Classifier
-		String serializedClassifier = "classifiers/english.muc.7class.nodistsim.crf.ser.gz";      
+		String serializedClassifier = "C:\\Users\\hmiguel\\workspace\\classifiers\\english.muc.7class.nodistsim.crf.ser.gz";      
         AbstractSequenceClassifier classifier = CRFClassifier.getClassifierNoExceptions(serializedClassifier);
 		
 		
