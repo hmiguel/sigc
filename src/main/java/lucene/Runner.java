@@ -26,7 +26,7 @@ public class Runner {
 
 		Lucene luc = new Lucene();
 		
-		luc.buildIndex();
+		//luc.buildIndex();
 		
 		//System.out.println(luc.suggestTermsFor("lond"));
 		
@@ -46,7 +46,7 @@ public class Runner {
 		
 		//lu.buildIndex();
 		
-		//System.out.println(luc.QuerySearch("obama", 0));
+		System.out.println(luc.QuerySearch("obama", 0));
 		/*
 		
 		List<Article> articles = DataReader.getArticles(); 

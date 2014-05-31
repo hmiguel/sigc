@@ -61,10 +61,11 @@ public class IndexBuilder {
 		doc.add(new TextField("abstract", a.getAbstract(), Field.Store.YES)); // Abstract 
 		
 		// TOPICS - MALLET
-		//List<Topic> topics = a.getTopics();
-		//for(Topic topic : topics){ 
-			//doc.add(new TextField("topic", topic.getTopic(), Field.Store.YES));	
-		//}
+		List<Topic> topics = a.getTopics();
+		for(Topic topic : topics){ 
+			doc.add(new TextField("topic", topic.getTopic(), Field.Store.YES));	
+		}
+		
 		
 		// NAME ENTITY RECOGNITION
 		

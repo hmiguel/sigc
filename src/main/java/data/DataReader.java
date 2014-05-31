@@ -5,6 +5,8 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -30,6 +32,9 @@ import org.codehaus.jettison.json.JSONObject;
 
 
 
+
+
+
 import edu.stanford.nlp.ie.AbstractSequenceClassifier;
 import edu.stanford.nlp.ie.crf.CRFClassifier;
 import stanford.StringtoNER;
@@ -40,10 +45,39 @@ import models.Topic;
 
 public class DataReader {
 	
-	public static List<Article> getArticles() throws JSONException, IOException{
+	
+	public static JSONObject getTopics() throws JSONException{
+		
+		
+		// READ TOPICS DATABASE <- INFO
+		String info_path = "C:\\Users\\hmiguel\\Desktop\\Faculdade\\2014\\2S\\SIGC-Proj\\data\\topics.json";
+			
+		FileInputStream jsonFile = null;
+		JSONObject json = null;
+		try {
+			jsonFile = new FileInputStream(new File(info_path));
+			String jsonStr = IOUtils.toString(jsonFile, "UTF-8");
+			json = new JSONObject(jsonStr);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			return null;
+		} catch (JSONException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			return null;
+		}
+		
+		
+		
+		
+		
+		return json;
+		
+	}
+	
+	public static List<Article> getArticles() throws JSONException, IOException, URISyntaxException{
 		
 		List<Article> list = new ArrayList<Article>();
-		
 		
 		// READ JSON DATABASE <- INFO
 		String info_path = "C:\\Users\\hmiguel\\Desktop\\Faculdade\\2014\\2S\\SIGC-Proj\\data\\info.json";
@@ -71,6 +105,7 @@ public class DataReader {
 		String serializedClassifier = "C:\\Users\\hmiguel\\workspace\\classifiers\\english.muc.7class.nodistsim.crf.ser.gz";      
         AbstractSequenceClassifier classifier = CRFClassifier.getClassifierNoExceptions(serializedClassifier);
 		
+        JSONObject topics = getTopics();
 		
 		for (final File fileEntry : folder.listFiles()) {
 			if (fileEntry.isDirectory()) {
@@ -103,8 +138,23 @@ public class DataReader {
 					a.setCategories(catlist);
 					
 					//RESOURCE
-					a.setResource(jart.get("link").toString());
+					String resource = jart.get("link").toString();
+					//resource = split
+					URI uri = new URI(resource);
+					String path = uri.getPath();
+					resource = path.substring(path.lastIndexOf('/') + 1);
+					a.setResource(resource);
 				
+					//Topics
+					JSONArray jtopics = topics.getJSONArray(resource);
+					List<Topic> ltopics = new ArrayList<Topic>();
+					for(int y=0; y< jtopics.length();y++){
+						Topic t = new Topic();
+						t.setTopic((String) jtopics.get(y));
+						ltopics.add(t);		
+					}
+					a.setTopics(ltopics);
+					
 					//Description
 					a.setDesc(jart.get("description").toString());
 					
