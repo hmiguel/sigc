@@ -265,8 +265,8 @@ public class Lucene {
                     analyzer);
 
 			// SEARCH
-			int hitsPerPage = 10;
-			int pageOffset = 10;
+			int hitsPerPage = 9;
+			int pageOffset = 9;
 
 			IndexReader reader = DirectoryReader.open(FSDirectory.open(index)); // READ
 			IndexSearcher searcher = new IndexSearcher(reader);
