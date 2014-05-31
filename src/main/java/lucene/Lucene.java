@@ -140,7 +140,7 @@ public class Lucene {
 		}else{
 			
 			
-			auto_index = new File("/home/padsilva/desktop/SIGC/index/autocomplete/"); //TODO
+			auto_index = new File("/home/padsilva/Desktop/SIGC/index/autocomplete/"); //TODO
 		}
 		
 		IndexReader autoCompleteReader = DirectoryReader.open(FSDirectory.open(auto_index)); // READ
