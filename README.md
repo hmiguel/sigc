@@ -1,6 +1,4 @@
 sigc
 ====
 
-sigc
-
-tanga
+SIGC Project 2014
