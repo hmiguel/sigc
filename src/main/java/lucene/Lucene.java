@@ -139,7 +139,7 @@ public class Lucene {
 		}else{
 			
 			
-			auto_index = new File("/home/padsilva/index/autocomplete"); //TODO
+			auto_index = new File("/home/padsilva/index/autocomplete/"); //TODO
 		}
 		
 		IndexReader autoCompleteReader = DirectoryReader.open(FSDirectory.open(auto_index)); // READ
