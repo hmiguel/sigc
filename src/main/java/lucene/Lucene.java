@@ -134,6 +134,7 @@ public class Lucene {
 		JSONArray array = new JSONArray();
 		
 		if (System.getProperty("os.name").contains("Windows")){
+			
 			auto_index = new File("C:/Users/hmiguel/workspace/index/autocomplete/");
 			
 		}else{
@@ -144,8 +145,6 @@ public class Lucene {
 		
 		IndexReader autoCompleteReader = DirectoryReader.open(FSDirectory.open(auto_index)); // READ
 		IndexSearcher searcher = new IndexSearcher(autoCompleteReader);
-		
-		
 		
 		Term t = new Term("entity", q);
 		

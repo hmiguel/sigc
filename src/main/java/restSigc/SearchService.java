@@ -59,14 +59,15 @@ public class SearchService {
 			@Context HttpServletResponse servlerResponse
 			) {
 	
+		word = word.toLowerCase();
+		
 		servlerResponse.addHeader("Access-Control-Allow-Origin", "*");
 		
 		Lucene lu = new Lucene();
 	
 		try {
 			JSONArray suggestions = lu.suggestTermsFor(word);
-		
-			
+
 			if (suggestions.length() > 0) {
 
 				return Response.ok(suggestions).build();

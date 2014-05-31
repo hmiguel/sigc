@@ -28,43 +28,12 @@ public class Runner {
 		
 		//luc.buildIndex();
 		
-		//System.out.println(luc.suggestTermsFor("lond"));
+		System.out.println(luc.suggestTermsFor("lond"));
 		
 		//luc.CreateAutoCompleteIndexFromDic();
 		
-		//System.out.println(SpellCheck.Suggest("hello")); // TO SLOW
-	
-		//RecSys r = new RecSys();
-		
-		//System.out.println();
-		
-		
-		
-		//Lucene lu = new Lucene();
-		
-		//lu.init();
-		
 		//lu.buildIndex();
-		
-		System.out.println(luc.QuerySearch("obama", 0));
-		/*
-		
-		List<Article> articles = DataReader.getArticles(); 
-		
-		// #ARTICLES
-		System.out.println("SIZE: " + articles.size());
 
-		// FOR EACH ARTICLE -> CREATE INDEX DOCUMENT
-		for (Article article : articles) {
-			System.out.println(article.getPersons());
-		}
-		
-		*/
-		//System.out.println(j);
-			
-		//luc.buildIndex();
-		
-		//System.out.println(luc.QuerySearch("new york", 0));
 	}
 
 }
