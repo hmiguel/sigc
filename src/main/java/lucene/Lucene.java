@@ -47,6 +47,13 @@ public class Lucene {
 
 	private static StandardAnalyzer analyzer;
 	private static File index;
+	
+	
+	public File getindexpath(){
+		
+		return index;
+		
+	}
 
 	public boolean CreateAutoCompleteIndexFromDic() {
 

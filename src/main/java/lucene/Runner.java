@@ -11,6 +11,7 @@ import org.codehaus.jettison.json.JSONException;
 import org.codehaus.jettison.json.JSONObject;
 
 import data.DataReader;
+import data.Visualizer;
 
 
 public class Runner {
@@ -24,11 +25,15 @@ public class Runner {
 	public static void main(String[] args) throws IOException, ParseException, JSONException {
 		// TODO Auto-generated method stub
 
-		Lucene luc = new Lucene();
+		//Lucene luc = new Lucene();
+		
+		Visualizer Vi = new Visualizer();
+		
+		Vi.getAllData();
 		
 		//luc.buildIndex();
 		
-		System.out.println(luc.suggestTermsFor("lond"));
+		//System.out.println(luc.suggestTermsFor("lond"));
 		
 		//luc.CreateAutoCompleteIndexFromDic();
 		
