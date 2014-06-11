@@ -45,7 +45,9 @@ public class Visualizer {
 					topics.put(t);
 					
 				}
-				//data.put("topics", topics);
+				
+				visual.put("id",i);
+				visual.put("label", d.get("label"));
 				 
 				//	full_topics.put(topics);
 				visual.put("topic", topics);

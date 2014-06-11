@@ -14,6 +14,7 @@ import data.DataReader;
 import data.Visualizer;
 
 
+
 public class Runner {
 
 	/**
@@ -32,6 +33,10 @@ public class Runner {
 		Vi.getAllData();
 		
 		//luc.buildIndex();
+		
+		JSONObject b = new JSONObject();
+		
+		b.getJSONObject("a");
 		
 		//System.out.println(luc.suggestTermsFor("lond"));
 		
