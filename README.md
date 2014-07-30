@@ -1,4 +1,4 @@
 sigc
 ====
 
-SIGC Project 2014
+Intelligent Systems for Knowledge Management Project 2014
